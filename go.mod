@@ -13,3 +13,5 @@ require (
 	github.com/spf13/viper v1.6.2
 	golang.org/x/sys v0.0.0-20201211090839-8ad439b19e0f // indirect
 )
+
+replace github.com/XciD/loxone-prometheus-exporter => github.com/axxelG/loxone-prometheus-exporter dev
