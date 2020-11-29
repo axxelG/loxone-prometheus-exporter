@@ -4,6 +4,7 @@
 *.dll
 *.so
 *.dylib
+dist/
 
 # Test binary, build with `go test -c`
 *.test
@@ -24,3 +25,5 @@ coverage.txt
 
 # Config files
 loxone-prometheus-exporter.yml
+goreleaser
+deploy_env.json

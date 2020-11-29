@@ -1,0 +1,57 @@
+project_name: loxone-exporter
+before:
+  hooks:
+    - go mod download
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    goarm:
+      - 7
+    ignore:
+      - goos: windows
+        goarch: arm
+archives:
+  - 
+    replacements:
+      darwin: macOS
+      linux: Linux
+      windows: Windows
+      amd64: x86_64
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - LICENSE
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+    name_template: "{{ .Tag }}+{{ .ShortCommit }}"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^Doc:'
+nfpms:
+  - file_name_template: '{{ .ProjectName }}_{{ .Tag }}{{ if .Arm }}v{{ .Arm }}{{ end }}-1_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+    homepage:  https://github.com/axxelG/loxone-prometheus-exporter
+    description: Provide metrics from Loxone Miniserver to Prometheus
+    maintainer: Axel Gluth <mail@axelgluth.de>
+    vendor: Axel Gluth
+    license: LGPL-3.0
+    formats:
+      - deb
+    bindir: "/usr/local/bin/loxone-exporter/"
+    config_files:
+      "config.example.yml": "/etc/loxone-exporter/config.yml"
+    files:
+      "install/systemd_loxone-exporter.service": "/etc/systemd/system/loxone-exporter.service"
+    scripts:
+      preinstall: "./install/deb_preinstall.sh"
+      postinstall: "./install/deb_postinstall.sh"

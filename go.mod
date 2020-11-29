@@ -14,4 +14,4 @@ require (
 	golang.org/x/sys v0.0.0-20201211090839-8ad439b19e0f // indirect
 )
 
-replace github.com/XciD/loxone-prometheus-exporter => github.com/axxelG/loxone-prometheus-exporter dev
+replace github.com/XciD/loxone-prometheus-exporter => github.com/axxelG/loxone-prometheus-exporter v0.0.0-20201128174206-bf5597f5f8f6
