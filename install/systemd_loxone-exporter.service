@@ -3,7 +3,7 @@ Description=Prometheus exporter for Loxone Miniserver
 After=network-online.target
 
 [Service]
-Type=notify
+Type=simple
 Restart=always
 RestartSec=5s
 User=loxone-exporter
