@@ -50,7 +50,7 @@ func main() {
 
 	// Start prometheus server
 	http.Handle("/metrics", promhttp.Handler())
-	go http.ListenAndServe(":8080", nil)
+	go http.ListenAndServe(cfg.ListenAddress(), nil)
 	prometheus.MustRegister(changes)
 	prometheus.MustRegister(values)
 

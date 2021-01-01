@@ -22,9 +22,16 @@ func (e *ReadConfigErr) Error() string {
 
 // Config holds our config values
 type Config struct {
-	Host     string
-	User     string
-	Password string
+	Host       string
+	User       string
+	Password   string
+	ListenIP   string
+	ListenPort string
+}
+
+// ListenAddress returns the address for a listener by concatenating ListenIP and ListePort
+func (c *Config) ListenAddress() string {
+	return c.ListenIP + ":" + c.ListenPort
 }
 
 // NewConfig reads the config into a new Config object
@@ -32,11 +39,17 @@ func NewConfig() (*Config, error) {
 
 	cfg := new(Config)
 
+	// Defaults
+	viper.SetDefault("ListenIP", "")
+	viper.SetDefault("ListenPort", "8080")
+
 	// Flags
 	pflag.String("configFile", "", "Path and name of Config")
 	pflag.String("host", "", "URL of the Miniserver")
 	pflag.String("user", "", "Username for Miniserver")
 	pflag.String("password", "", "Password for Miniserver")
+	pflag.String("listenIP", "", "IP address the service is listening on")
+	pflag.String("listenPort", "", "Port the service is listening on")
 	pflag.Parse()
 	viper.BindPFlags(pflag.CommandLine)
 
@@ -63,6 +76,8 @@ func NewConfig() (*Config, error) {
 	viper.BindEnv("Host")
 	viper.BindEnv("User")
 	viper.BindEnv("Password")
+	viper.BindEnv("ListenIP")
+	viper.BindEnv("ListenPort")
 
 	err = viper.Unmarshal(cfg)
 	if err != nil {

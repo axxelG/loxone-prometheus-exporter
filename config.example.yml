@@ -1,3 +1,5 @@
 host: "192.0.2.0"
 user: "testuser"
 password: "supersecretpassword"
+listenIP: "192.0.2.1"
+listenPort: "8080"
